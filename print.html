@@ -1,0 +1,830 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Boavizta cloud scanner 📡</title>
+        <meta name="robots" content="noindex" />
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="intro.html">Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">Tutorials 🚀</li><li class="chapter-item expanded "><a href="tutorials/quickstart-docker.html"><strong aria-hidden="true">1.</strong> Quickstart - using CLI docker 🐳</a></li><li class="chapter-item expanded "><a href="tutorials/quickstart-dashboard-docker.html"><strong aria-hidden="true">2.</strong> Quickstart - dashboard using docker 🐳</a></li><li class="chapter-item expanded "><a href="tutorials/quickstart-rust-cli.html"><strong aria-hidden="true">3.</strong> Quickstart - using cargo 🦀</a></li><li class="chapter-item expanded "><a href="tutorials/quickstart-serverless.html"><strong aria-hidden="true">4.</strong> Quickstart as serverless ⚡</a></li><li class="chapter-item expanded affix "><li class="part-title">How-to guides</li><li class="chapter-item expanded "><a href="how-to/building-cli.html"><strong aria-hidden="true">5.</strong> Building CLI</a></li><li class="chapter-item expanded "><a href="how-to/docker-guide.html"><strong aria-hidden="true">6.</strong> Run as docker</a></li><li class="chapter-item expanded "><a href="how-to/deploy-sls.html"><strong aria-hidden="true">7.</strong> Deploy serverless</a></li><li class="chapter-item expanded "><a href="how-to/passing-aws-credentials.html"><strong aria-hidden="true">8.</strong> AWS authentication</a></li><li class="chapter-item expanded "><a href="how-to/set-up-dashboard.html"><strong aria-hidden="true">9.</strong> Setup monitoring dashboard</a></li><li class="chapter-item expanded "><a href="how-to/filter-by-tags.html"><strong aria-hidden="true">10.</strong> Filtering by tags</a></li><li class="chapter-item expanded "><a href="how-to/using-private-boaviztapi.html"><strong aria-hidden="true">11.</strong> Using a private instance of Boavizta API</a></li><li class="chapter-item expanded "><a href="explanations/source-of-data.html"><strong aria-hidden="true">12.</strong> Source of data</a></li><li class="chapter-item expanded "><a href="explanations/processing-workload.html"><strong aria-hidden="true">13.</strong> How we process workload</a></li><li class="chapter-item expanded affix "><li class="part-title">Reference</li><li class="chapter-item expanded "><a href="reference/cli-options.html"><strong aria-hidden="true">14.</strong> CLI options</a></li><li class="chapter-item expanded "><a href="reference/env-vars.html"><strong aria-hidden="true">15.</strong> Environment variables</a></li><li class="chapter-item expanded "><a href="reference/output-data.html"><strong aria-hidden="true">16.</strong> Output data</a></li><li class="chapter-item expanded "><a href="reference/serverless-design.html"><strong aria-hidden="true">17.</strong> Serverless design</a></li><li class="chapter-item expanded "><a href="reference/limits.html"><strong aria-hidden="true">18.</strong> Limitations</a></li><li class="chapter-item expanded "><a href="reference/testing.html"><strong aria-hidden="true">19.</strong> Unit tests</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Boavizta cloud scanner 📡</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/Boavizta/cloud-scanner" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="about-cloud-scanner--"><a class="header" href="#about-cloud-scanner--">About cloud-scanner  📡</a></h1>
+<p><a href="https://github.com/Boavizta/cloud-scanner">Boavizta Cloud-scanner</a> returns environmental impacts of your AWS Instances (EC2) usage.</p>
+<p>It combines real time <em>inventory</em> and <em>usage</em> data from your AWS account with <a href="https://github.com/Boavizta/boaviztapi/">Boavizta API</a> to offer a  view of your impacts on a given region.</p>
+<ul>
+<li>multi criteria: Primary Energy consumption (PE), Abiotic resource depletion potential (ADP), and Global Warming Potential (GWP)</li>
+<li>multi stage: separate impacts of ressources Usage and Manufacture</li>
+</ul>
+<p>Estimations can be filtered by tags. It eases attribution to a specific server, environment, application or service.</p>
+<p>Cloud-scanner can be used:</p>
+<ul>
+<li>from command line, to get an immediate view of your impacts 💻</li>
+<li>as a metric server . You can use it to monitor and display real time impacts in a dashboard 📊</li>
+</ul>
+<p><img src="images/cloud-scanner-dashboard-clear.png" alt="A example dashboard rendering cloud scanner metrics" title="A example dashboard rendering cloud scanner metrics" /></p>
+<p>Cloud-scanner is an Open Source application maintained here: <a href="https://github.com/Boavizta/cloud-scanner">https://github.com/Boavizta/cloud-scanner</a>.</p>
+<h2 id="how-it-works"><a class="header" href="#how-it-works">How it works</a></h2>
+<p><img src="images/cloud-scanner-system-in-context.png" alt="System in context diagram of cloud scanner" title="System in context diagram of cloud scanner" /></p>
+<h2 id="-alpha-version"><a class="header" href="#-alpha-version">⚠ Alpha version</a></h2>
+<p>Cloud scanner is stable, but with limited functionality.</p>
+<p>This is work in progress, and development versions (<code>dev</code> branch of the repository) may already implement new functionalities. So have a look at the <a href="https://github.com/Boavizta/cloud-scanner/blob/main/CHANGELOG.md">changelog</a> and <a href="https://github.com/Boavizta/cloud-scanner/issues">Issues · Boavizta/cloud-scanner</a> on this repository.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="quick-start-run-cli-using-docker-"><a class="header" href="#quick-start-run-cli-using-docker-">Quick start run CLI using docker 🐳</a></h1>
+<p>No installation needed, you will run a public docker image of cloud-scanner CLI.</p>
+<h2 id="pre-requisites"><a class="header" href="#pre-requisites">Pre-requisites</a></h2>
+<ul>
+<li>Docker.</li>
+<li>A working AWS account (and your AWS CLI profile already configured)</li>
+</ul>
+<h2 id="run-cloud-scanner-cli"><a class="header" href="#run-cloud-scanner-cli">Run cloud-scanner cli</a></h2>
+<pre><code class="language-sh">docker pull ghcr.io/boavizta/cloud-scanner-cli:latest
+docker run -it ghcr.io/boavizta/cloud-scanner-cli:latest --help
+
+# Ensure you have a working AWS profile setup locally (like you would do for AWS CLI)
+# Note
+# - we map local credentials on the container (-v)
+# - we force a using 'myprofile' profile by setting the AWS_PROFILE environment variable with -e flag
+# - the -it flag is optional, only purpose is to get colored output if any
+
+# Just list instances
+docker run -it -v $HOME/.aws/credentials:/root/.aws/credentials:ro -e AWS_PROFILE='myprofile' ghcr.io/boavizta/cloud-scanner-cli:latest inventory
+
+# List instances and standard impacts (for 10 hours of use)
+docker run -it -v $HOME/.aws/credentials:/root/.aws/credentials:ro -e AWS_PROFILE='myprofile' ghcr.io/boavizta/cloud-scanner-cli:latest estimate --hours-use-time 10
+
+# Serve metrics
+``` sh
+# Note that we need to provide ca certificates and bind  listen address to 0.0.0.0.
+docker run -it -p 8000:8000 -v /etc/ssl/certs/ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt -v $HOME/.aws/credentials:/root/.aws/credentials:ro -e ROCKET_ADDRESS=0.0.0.0 -e ROCKET_PORT=8000 -e AWS_PROFILE='myprofile'  ghcr.io/boavizta/cloud-scanner-cli:latest serve
+</code></pre>
+<p>⚠ This method of passing credentials is not secure nor very practical. In a production setup on AWS, you should rather rely on the role of the instance that execute the container to manage authentication of the cli.</p>
+<p>⚠ Running metric server in container require setting  extra variables:</p>
+<ul>
+<li>to map AWS credentials</li>
+<li>to map SSL ca certificates</li>
+<li>and more importantly to configure Rocket to listen to 0.0.0.0 instead of default 127.0.0.1 (which is internal to the container. This is done with the extra variable: <code>ROCKET_ADDRESS=0.0.0.0</code></li>
+</ul>
+<p>Alternatively you may build and use a local docker image, See <a href="tutorials/../how-to/docker-guide.html#build-a-local-docker-image">build a local docker image</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="quick-start--display-dashboard-using-docker-compose-"><a class="header" href="#quick-start--display-dashboard-using-docker-compose-">Quick start : display dashboard using docker-compose 🐳</a></h1>
+<p>No installation needed, you will run a public docker image of cloud-scanner CLI and Boavizta API.</p>
+<p>All data remain local (this docker-compose stack uses a <em>private instance</em> of Boavizta API).</p>
+<h2 id="pre-requisites-1"><a class="header" href="#pre-requisites-1">Pre-requisites</a></h2>
+<ul>
+<li>Docker and docker-compose</li>
+<li>A working AWS account (and your AWS CLI profile already configured)</li>
+</ul>
+<p><img src="tutorials/../images/cloud-scanner-metrics-compose.excalidraw.png" alt="components of monitoring stack in docker compose" /></p>
+<h2 id="run-the-demo-dashboard"><a class="header" href="#run-the-demo-dashboard">Run the demo dashboard</a></h2>
+<pre><code class="language-sh"># Map your AWS credentials
+export AWS_PROFILE=name-of-your-profile
+# Start the stack (from the root of the repository)
+docker-compose up
+</code></pre>
+<ul>
+<li>Demo dashboard is exposed on http://localhost:3001 </li>
+<li>Log in with user admin/admin</li>
+<li>Select the dashboard in the left menu.</li>
+</ul>
+<p><img src="tutorials/../images/CS-dashboard.png" alt="Demo dashboard exposing cloud scanner metrics" title="A example dashboard rendering cloud scanner metrics" /></p>
+<h2 id="additional-info"><a class="header" href="#additional-info">Additional info</a></h2>
+<ul>
+<li>⚠ This docker-compose example is <strong>not</strong> intended  for production deployment, but rather for quick testing.
+<ul>
+<li>ports of all services are exposed.</li>
+<li>Grafana is served on http with default login.</li>
+</ul>
+</li>
+<li>You may have to update the line mapping your AWS profile (Replace <code>AWS_PROFILE=${AWS_PROFILE}</code> by <code>AWS_PROFILE=the-real-name-of-your-profile</code>).</li>
+<li>In corporate environments, you may need to provide your certificates authorities certificates (<code>ca-certificates</code>) to the cloud-scanner container (uncomment the mapping line in the docker-compose file).</li>
+<li>For the demo, we deliberately set a short metrics scrapping interval (30 seconds in this demo). In production deloymnent, you may want to increase this metric scraping interval in the prometheus configuration file.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="quick-start---run-cli-using-cargo-"><a class="header" href="#quick-start---run-cli-using-cargo-">Quick start - Run CLI using Cargo 🦀</a></h1>
+<p>This quick start will show the impacts of your EC2 instances for 10 hours of use, by building a local version of the cloud-scanner CLI from source.</p>
+<h2 id="prerequisites"><a class="header" href="#prerequisites">Prerequisites</a></h2>
+<ul>
+<li>a Rust toolchain installed locally <a href="https://rustup.rs/">rustup.rs - The Rust toolchain installer</a></li>
+<li>A working AWS account (and you AWS CLI profile already configured)</li>
+<li>optional: <a href="https://stedolan.github.io/jq/">jq</a> to format json results</li>
+</ul>
+<h2 id="compile-an-run-cli-"><a class="header" href="#compile-an-run-cli-">Compile an run CLI 💻</a></h2>
+<ol>
+<li>Clone the cloud-scanner repository</li>
+<li>build and run CLI</li>
+</ol>
+<pre><code class="language-sh"># Ensure you have a working AWS profile setup locally (like you would do for AWS CLI)
+export AWS_PROFILE='&lt;YOUR_PROFILE_NAME&gt;'
+
+# Get impacts of 10 hours of use (on your default account region)
+cargo run estimate --hours-use-time 10 | jq
+
+# Same thing but as metrics
+cargo run -- --as-metrics estimate --hours-use-time 10
+
+# Same query for explicit region
+cargo run -- --aws-region eu-west-3 estimate --hours-use-time 10 | jq
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="use-cloud-scanner-as-a-serverless--application"><a class="header" href="#use-cloud-scanner-as-a-serverless--application">Use cloud-scanner as a serverless  application⚡</a></h1>
+<p>This will deploy the cloud-scanner <em>inside</em> your AWS account. You can use it to: </p>
+<ul>
+<li>scan the account to get json impacts (as you would do with the CLI)</li>
+<li>or</li>
+<li>get metrics (that you can scrape with prometheus or the monitoring system of your choice)</li>
+</ul>
+<p>The application is build and deployed using the serverless framework (see <a href="tutorials/../reference/serverless-design.html">serverless-design</a>).</p>
+<h2 id="prerequisites-1"><a class="header" href="#prerequisites-1">Prerequisites</a></h2>
+<p>The deployment creates an aws role configured to get sufficient permission to scan your resources without requesting end-user authentication.</p>
+<ol>
+<li>Nodejs installed locally</li>
+<li>An AWS account/profile with sufficient permissions to deploy lambda, configure API gateway, and create a role.</li>
+</ol>
+<p>⚠ The deployment process was only tested on Linux.</p>
+<h2 id="deploy-the-application-"><a class="header" href="#deploy-the-application-">Deploy the application ⚡</a></h2>
+<pre><code class="language-sh"># Install node the serverless framework and it's dependencies
+npm i
+export aws_profile = &lt;my profile&gt;
+# Deploy the application to your AWS account
+serverless deploy
+</code></pre>
+<h2 id="usage"><a class="header" href="#usage">Usage</a></h2>
+<h3 id="scan-the-account--region-"><a class="header" href="#scan-the-account--region-">Scan the account / region 💻</a></h3>
+<p>This returns results in json format (see below, same as CLI)</p>
+<p>https://xxxxx.execute-api.eu-west-1.amazonaws.com/dev/scan?hours_use_time=5&amp;aws_region=eu-west-1</p>
+<p>Use <code>hours_use_time</code> and <code>aws_region</code> parameters in the query to pass the values to the lambda.</p>
+<h3 id="get-metrics-"><a class="header" href="#get-metrics-">Get Metrics 📊</a></h3>
+<p>https://xxxxx.execute-api.eu-west-1.amazonaws.com/dev/metrics?aws_region=eu-central-1</p>
+<p>Returns metrics for <strong>1 hour of use</strong> in prometheus format.</p>
+<p>The metrics represent the costs / impacts of one hour of use of the resources present in your account at the time of the query.</p>
+<p>Use <code>aws_region</code> parameters in the query.</p>
+<pre><code class="language-plaintext"># HELP boavizta_number_of_instances_total Number of instances detected during the scan.
+# TYPE boavizta_number_of_instances_total gauge
+boavizta_number_of_instances_total{awsregion=&quot;eu-central-1&quot;,country=&quot;DEU&quot;} 7
+# HELP boavizta_number_of_instances_assessed Number of instances that were considered in the measure.
+# TYPE boavizta_number_of_instances_assessed gauge
+boavizta_number_of_instances_assessed{awsregion=&quot;eu-central-1&quot;,country=&quot;DEU&quot;} 5
+# HELP boavizta_duration_of_use_hours Number of instances detected during the scan.
+# TYPE boavizta_duration_of_use_hours gauge
+boavizta_duration_of_use_hours{awsregion=&quot;eu-central-1&quot;,country=&quot;DEU&quot;} 1.0
+# HELP boavizta_pe_manufacture_megajoules Power consumed for manufacture.
+# TYPE boavizta_pe_manufacture_megajoules gauge
+boavizta_pe_manufacture_megajoules{awsregion=&quot;eu-central-1&quot;,country=&quot;DEU&quot;} 1760.0
+# HELP boavizta_pe_use_megajoules Power consumed during usage.
+# TYPE boavizta_pe_use_megajoules gauge
+boavizta_pe_use_megajoules{awsregion=&quot;eu-central-1&quot;,country=&quot;DEU&quot;} 0.86
+# EOF
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="building-cloud-scanner-cli-with-cargo-"><a class="header" href="#building-cloud-scanner-cli-with-cargo-">Building cloud-scanner CLI with Cargo 🦀</a></h1>
+<h2 id="on-linux"><a class="header" href="#on-linux">On Linux</a></h2>
+<p>Install Rust and linux-musl dependencies.</p>
+<pre><code class="language-sh"># Install rust (see https://www.rust-lang.org/tools/install), validate when prompted
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source &quot;$HOME/.cargo/env&quot;
+# Add Linux musl target (needed for cross compilation for aws lambda)
+rustup target add x86_64-unknown-linux-musl
+
+sudo apt update &amp;&amp; sudo apt install -y musl-tools musl-dev
+
+# Test a build
+cargo build
+
+#  build a release
+cargo build --release
+</code></pre>
+<h2 id="on-windows-with-wsl2"><a class="header" href="#on-windows-with-wsl2">On Windows with WSL2</a></h2>
+<p>Tested method to build Rust on Windows is to use <em>Windows Subsystem For Linux</em> (WSL2)</p>
+<ol>
+<li>Prerequisite: install WSL2 and  the latest Ubuntu LTS image (22.04).
+<em>If you do not WSL yet, you may inspire from <a href="https://docs.microsoft.com/en-us/windows/dev-environment/javascript/nodejs-on-wsl">Set up Node.js on WSL 2</a>.</em></li>
+<li>After WSL is setup, follow Linux instructions above inside the Linux VM.</li>
+</ol>
+<h2 id="using-docker"><a class="header" href="#using-docker">Using docker</a></h2>
+<p>See <a href="how-to/./docker-guide.html#build-a-local-docker-image">Build a local docker image</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="usage-with-docker-"><a class="header" href="#usage-with-docker-">Usage with Docker 🐳</a></h1>
+<h2 id="build-a-local-docker-image"><a class="header" href="#build-a-local-docker-image">Build a local docker image</a></h2>
+<pre><code class="language-sh"># Local build of docker image
+docker build . --tag cloud-scanner-cli
+# Test run
+docker run -it cloud-scanner-cli --help
+</code></pre>
+<h2 id="run-cloud-scanner-as-a-docker-image"><a class="header" href="#run-cloud-scanner-as-a-docker-image">Run cloud-scanner as a docker image</a></h2>
+<p>See <a href="how-to/../tutorials/quickstart-docker.html">Quickstart using docker</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="deploy-cloud-scanner-as-a-serverless-application"><a class="header" href="#deploy-cloud-scanner-as-a-serverless-application">Deploy cloud scanner as a serverless application</a></h1>
+<p>You can deploy cloud scanner as a serverless application (AWS lambda).</p>
+<p>The application is build and deployed using the serverless framework (see <a href="how-to/../reference/serverless-design.html">serverless-design</a>).</p>
+<h2 id="using-linux"><a class="header" href="#using-linux">Using Linux</a></h2>
+<ol>
+<li>Install Rust</li>
+<li>Install nvm, nodejs</li>
+<li>test serverless package</li>
+</ol>
+<h3 id="install-rust"><a class="header" href="#install-rust">Install Rust</a></h3>
+<pre><code class="language-sh"># Install rust (see https://www.rust-lang.org/tools/install), validate when prompted
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source &quot;$HOME/.cargo/env&quot;
+# Add Linux musl target (needed for cross compilation for lambda)
+rustup target add x86_64-unknown-linux-musl
+
+sudo apt update &amp;&amp; sudo apt install -y musl-tools musl-dev
+
+# Test a build
+cargo build
+</code></pre>
+<h3 id="install-node-for-serverless-deployment"><a class="header" href="#install-node-for-serverless-deployment">Install node (for serverless deployment)</a></h3>
+<p>nvm, node.js and npm</p>
+<p>See https://docs.microsoft.com/en-us/windows/dev-environment/javascript/nodejs-on-wsl</p>
+<pre><code class="language-sh">sudo apt-get install curl
+
+# Install nvm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+# Install node
+nvm install --lts
+</code></pre>
+<h3 id="install-serverless-framework-and-deps"><a class="header" href="#install-serverless-framework-and-deps">Install serverless framework and deps</a></h3>
+<pre><code class="language-sh">npm install -g serverless
+npm i
+# Test packaging
+serverless package
+# deploy
+serverless deploy
+</code></pre>
+<h2 id="using-windows"><a class="header" href="#using-windows">Using Windows</a></h2>
+<p>Tested method to deploy this serverless app from on windows is to use Windows Subsystem For Linux (WSL2).</p>
+<ol>
+<li>Prerequisite: install WSL2 and  the latest Ubuntu LTS image (22.04).
+<em>If you do not have it yet, you may inspire from <a href="https://docs.microsoft.com/en-us/windows/dev-environment/javascript/nodejs-on-wsl">Set up Node.js on WSL 2</a>.</em></li>
+<li>After WSL is setup, follow Linux instructions above inside the Linux VM.</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="aws-authentication"><a class="header" href="#aws-authentication">AWS authentication</a></h1>
+<p>Easiest way to pass aws credential is use an environment variable to use a specific aws profile.</p>
+<p>Pre-requisite: AWS CLI installed and configured: <a href="https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html">Installing or updating the latest version of the AWS CLI - AWS Command Line Interface</a></p>
+<pre><code class="language-sh"># cloud-scanner CLI uses the AWS_PROFILE set in the environment variable.
+export AWS_PROFILE='&lt;YOUR_PROFILE_NAME&gt;'
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="integrate-metrics-to-a-monitoring-dashboard"><a class="header" href="#integrate-metrics-to-a-monitoring-dashboard">Integrate metrics to a monitoring dashboard</a></h1>
+<p>Cloud-scanner can be used to export metrics related to the impact of your cloud account.</p>
+<p>The metrics are exposed in Prometheus/OpenMetrics format. You can use it to feed a monitoring dashboard and keep an eye on the evolution of impacts of your usage.</p>
+<p><img src="how-to/../images/cloud-scanner-dashboard-clear.png" alt="cloud-scanner-metrics-dashboard" /></p>
+<h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
+<ol>
+<li>Start cloud-scanner in metrics mode (using the  <code>--serve</code>  option or by deploying it as a serverless application).</li>
+<li>Setup Prometheus to scrape the metrics</li>
+<li>Configure a dashboard to display the results.</li>
+</ol>
+<p><img src="how-to/../images/cloud-scanner-metrics-compose.excalidraw.png" alt="components of monitoring stack in docker compose" /></p>
+<h2 id="detailed-steps"><a class="header" href="#detailed-steps">Detailed steps</a></h2>
+<p>You can refer to  the provided <a href="how-to/../tutorials/quickstart-dashboard-docker.html">docker compose example </a> for a quick start.</p>
+<p>Prometheus and Grafana config files are in the <a href="https://github.com/Boavizta/cloud-scanner/tree/main/dashboard-config">dashboard-config</a> directory.</p>
+<p>For production use:</p>
+<ul>
+<li>It is easier (and safer) to deploy cloud-scanner as a serverless application. See <a href="how-to/deploy-sls.html">Deploy cloud scanner as a serverless application</a>.</li>
+<li>In production environment, you may want to increase the  metrics scraping interval (30 seconds in this demo) in the prometheus configuration file.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="filter-by-tags"><a class="header" href="#filter-by-tags">Filter by tags</a></h1>
+<p>You can limit cloud-scanner results (metriccs or json) to the cloud resources that match specific tags.</p>
+<p>You can use multiple tags. </p>
+<p>Works with inventory or estimates.</p>
+<h2 id="filter-in-cli"><a class="header" href="#filter-in-cli">Filter in cli</a></h2>
+<pre><code class="language-sh"># Retrieve only resources with the following tags:
+#  CustomTagNameForDebug=olivierdemeringoadm
+#     and 
+#  Name=test-boavizta
+cargo run -- -t Name=test-boavizta-2 -t CreatorName=olivierdemeringoadm  inventory| jq
+</code></pre>
+<h2 id="filter-with-serverlesslambda"><a class="header" href="#filter-with-serverlesslambda">Filter (with serverless/lambda)</a></h2>
+<p>Use one (or multiple) <code>filter_tag</code> parameter in the query string to restrict results.</p>
+<pre><code class="language-sh"># Retrieve only resources with the following tags:
+#  CustomTagNameForDebug=olivierdemeringoadm
+#     and 
+#  Name=test-boavizta
+https://&lt;EDITED&gt;.execute-api.eu-west-1.amazonaws.com/dev/scan?hours_use_time=5&amp;aws_region=eu-west-1&amp;filter_tag=CustomTagNameForDebug=olivierdemeringoadm&amp;filter_tag=Name=test-boavizta
+</code></pre>
+<h2 id="filter-metrics"><a class="header" href="#filter-metrics">Filter metrics</a></h2>
+<p>Use the <code>filter_tag</code> query parameter in the URL.</p>
+<p>It can be used multiple time (only instances matching <em>all</em> tags will be returned).</p>
+<p>Example queries</p>
+<ul>
+<li><a href="http://localhost:8000/metrics?aws_region=eu-west-3&amp;filter_tag=Name=boatest&amp;filter_tag=OtherTag=other-value">http://localhost:8000/metrics?aws_region=eu-west-3&amp;filter_tag=Name=boatest&amp;filter_tag=OtherTag=other-value</a></li>
+<li><a href="http://localhost:8000/metrics?aws_region=eu-west-3&amp;filter_tag=Name=boatest">http://localhost:8000/metrics?aws_region=eu-west-3&amp;filter_tag=Name=boatest</a></li>
+<li><a href="http://localhost:8000/metrics?aws_region=eu-west-1&amp;filter_tag=Name=test-boavizta">http://localhost:8000/metrics?aws_region=eu-west-1&amp;filter_tag=Name=test-boavizta</a></li>
+</ul>
+<h2 id="important-limitation"><a class="header" href="#important-limitation">Important limitation</a></h2>
+<p>Suppose the following instances (and tags)</p>
+<ul>
+<li>
+<p>instance1 (</p>
+<ul>
+<li>ENV=prod</li>
+<li>PURPOSE=CI</li>
+</ul>
+</li>
+<li>
+<p>instance2</p>
+<ul>
+<li>ENV=prod</li>
+<li>PURPOSE=service</li>
+</ul>
+</li>
+<li>
+<p>Filtering on “ENV=prod” will return instance1 and instance2</p>
+</li>
+<li>
+<p>Filtering on “ENV=prod” and PURPOSE=CI will return only instance2</p>
+</li>
+<li>
+<p>No filter will return <em>all</em> instances</p>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="using-a-private-instance-of-boavizta-api"><a class="header" href="#using-a-private-instance-of-boavizta-api">Using a private instance of Boavizta API</a></h1>
+<p>To avoid that the scanner sends your invnetory data to the public version of Boavizta API,  It is recommended to deploy your own instance of Boavizta API.</p>
+<p>This is also usefull if you want to pin the version of API you intend to use.</p>
+<p>The Boavizta API can be deployed in several ways (docker, lambda a.s.o.). Refer to the API documentation: <a href="https://doc.api.boavizta.org/Reference/deploy/">Deploy - Boavizta API documentation</a>.</p>
+<p>Once you have deployed your instance of API, use either the command line flags (CLI) or environment variable (docker, lambda) to configure the scanner to use <em>your</em> API instance.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="source-of-data"><a class="header" href="#source-of-data">Source of data</a></h1>
+<p>Impact data is retrieved from <a href="https://github.com/Boavizta/boaviztapi/">BOAVIZTA reference data API</a>.</p>
+<p>This is similar to what you can get from <a href="http://datavizta.boavizta.org/cloudimpact">Datavizta</a>, but with automated inventory.</p>
+<ul>
+<li>Current version of cloud-scanner uses API v0.2.x</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="how-we-process-workload"><a class="header" href="#how-we-process-workload">How we process workload</a></h1>
+<p>Workload of instances are estimated using AWS cloudwatch CPU metrics summary.</p>
+<p>Cloud scanner uses a sampling period of 15 minutes, but impacts metrics are returned as impacts equivalent to one hour of use.</p>
+<p>This means that instance impacts metrics data returned can be understood as: <code>impact for one hour of use (considering  the CPU workload of 15 last minutes)</code>.</p>
+<p>Why this default sampling period of 15 minutes ?</p>
+<ul>
+<li>It seems sufficient for our current monitoring needs (but maybe we can make it configurable in the future).</li>
+<li>It seems hard to go below 10 minutes (because default period  of AWS instance metrics is 5 minutes. You need to activate <code>detailed monitoring</code> (extra feature) for 1 minute granularity: <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/viewing_metrics_with_cloudwatch.html#ec2-cloudwatch-metrics">List the available CloudWatch metrics for your instances - Amazon Elastic Compute Cloud</a>).</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="cli-options"><a class="header" href="#cli-options">CLI options</a></h1>
+<pre><code class="language-sh">List aws instances and their environmental impact (from Boavizta API)
+
+Usage: cloud-scanner-cli [OPTIONS] &lt;COMMAND&gt;
+
+Commands:
+  estimate   Get estimation of impacts for a given usage duration
+  inventory  List instances and  their average cpu load for the last 5 minutes (no impact data)
+  serve      Serve metrics on http://localhost:3000/metrics
+  help       Print this message or the help of the given subcommand(s)
+
+Options:
+  -a, --aws-region &lt;AWS_REGION&gt;
+          AWS region (The default aws profile region is used if not provided)
+  -b, --boavizta-api-url &lt;BOAVIZTA_API_URL&gt;
+          Optional Boavizta API URL if you want to use your own instance (URL without the trailing slash, e.g. https://api.boavizta.org)
+  -t, --filter-tags &lt;FILTER_TAGS&gt;
+          Filter instances on tags (like tag-key-1=val_1 tag-key_2=val2)
+  -v, --verbosity...
+          Enable logging, use multiple `v`s to increase verbosity
+  -m, --as-metrics
+          Returns OpenMetrics (Prometheus) instead of json output
+  -h, --help
+          Print help information
+  -V, --version
+          Print version information
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="environment-variables"><a class="header" href="#environment-variables">Environment variables</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="output-data"><a class="header" href="#output-data">Output data</a></h1>
+<p>Cloud scanner CLI and serverless application return data as <em>json</em> or <em>Open Metrics</em> (Prometheus) format.</p>
+<h2 id="json-output-the-default"><a class="header" href="#json-output-the-default">JSON output (the default)</a></h2>
+<p>Cloud scanner returns a json array of instances metadata.</p>
+<p>⚠ Returns <em>empty</em> impacts when the <em>instance type</em> is not known in Boavizta database</p>
+<pre><code class="language-json">[
+  {
+    &quot;instance_id&quot;: &quot;i-001dc0ebbf9cb25c0&quot;,
+    &quot;instance_type&quot;: &quot;t2.micro&quot;,
+    &quot;usage_data&quot;: {
+      &quot;hours_use_time&quot;: 5,
+      &quot;usage_location&quot;: &quot;IRL&quot;
+    },
+    &quot;impacts&quot;: {}
+  },
+  {
+    &quot;instance_id&quot;: &quot;i-004599844f7c24814&quot;,
+    &quot;instance_type&quot;: &quot;t2.small&quot;,
+    &quot;usage_data&quot;: {
+      &quot;hours_use_time&quot;: 5,
+      &quot;usage_location&quot;: &quot;IRL&quot;
+    },
+    &quot;impacts&quot;: {}
+  },
+  {
+    &quot;instance_id&quot;: &quot;i-075444d7293d8bd76&quot;,
+    &quot;instance_type&quot;: &quot;t2.micro&quot;,
+    &quot;usage_data&quot;: {
+      &quot;hours_use_time&quot;: 5,
+      &quot;usage_location&quot;: &quot;IRL&quot;
+    },
+    &quot;impacts&quot;: {}
+  },
+  {
+    &quot;instance_id&quot;: &quot;i-033df52f12f30ca66&quot;,
+    &quot;instance_type&quot;: &quot;m6g.xlarge&quot;,
+    &quot;usage_data&quot;: {
+      &quot;hours_use_time&quot;: 5,
+      &quot;usage_location&quot;: &quot;IRL&quot;
+    },
+    &quot;impacts&quot;: {
+      &quot;adp&quot;: {
+        &quot;manufacture&quot;: 0.0084,
+        &quot;unit&quot;: &quot;kgSbeq&quot;,
+        &quot;use&quot;: 1.7e-9
+      },
+      &quot;gwp&quot;: {
+        &quot;manufacture&quot;: 87,
+        &quot;unit&quot;: &quot;kgCO2eq&quot;,
+        &quot;use&quot;: 0.029
+      },
+      &quot;pe&quot;: {
+        &quot;manufacture&quot;: 1100,
+        &quot;unit&quot;: &quot;MJ&quot;,
+        &quot;use&quot;: 0.82
+      }
+    }
+  }
+]
+</code></pre>
+<h2 id="openmetricsprometheus-output"><a class="header" href="#openmetricsprometheus-output">OpenMetrics/Prometheus output</a></h2>
+<p>As CLI application, If using <code>--as-metrics</code> or <code>-m</code>  option or the <code>serve</code> command, cloud-scanner returns consolidated results as OpenMetric/Prometheus format instead of json details.
+This is also the default format of the serverless app <code>metrics</code> route.</p>
+<p>When using the metric output format, you cannot see the individual impacts of each instance. Instead, impacts of all instances are added to provide a global figure.</p>
+<pre><code class="language-sh">cargo run -- --as-metrics  standard -u 1
+
+# HELP boavizta_number_of_instances_total Number of instances detected during the scan.
+# TYPE boavizta_number_of_instances_total gauge
+boavizta_number_of_instances_total{awsregion=&quot;eu-west-1&quot;,country=&quot;IRL&quot;} 9
+# HELP boavizta_number_of_instances_assessed Number of instances that were considered in the measure.
+# TYPE boavizta_number_of_instances_assessed gauge
+boavizta_number_of_instances_assessed{awsregion=&quot;eu-west-1&quot;,country=&quot;IRL&quot;} 6
+# HELP boavizta_duration_of_use_hours Number of instances detected during the scan.
+# TYPE boavizta_duration_of_use_hours gauge
+boavizta_duration_of_use_hours{awsregion=&quot;eu-west-1&quot;,country=&quot;IRL&quot;} 1.0
+# HELP boavizta_pe_manufacture_megajoules Power consumed for manufacture.
+# TYPE boavizta_pe_manufacture_megajoules gauge
+boavizta_pe_manufacture_megajoules{awsregion=&quot;eu-west-1&quot;,country=&quot;IRL&quot;} 2060.0
+# HELP boavizta_pe_use_megajoules Power consumed during usage.
+# TYPE boavizta_pe_use_megajoules gauge
+boavizta_pe_use_megajoules{awsregion=&quot;eu-west-1&quot;,country=&quot;IRL&quot;} 0.228
+# EOF
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="serverless-design"><a class="header" href="#serverless-design">Serverless design</a></h1>
+<p>We use the <a href="https://www.serverless.com/">serverless framework</a> and the <a href="https://github.com/softprops/serverless-rust">softprops/serverless-rust</a> plugin to ease packaging and deployment as lambda.</p>
+<p>The cloud-scanner-cli is wrapped into a set of lambdas functions exposed behind an AWS API gateway.</p>
+<p><em>This is certainly not the only way to deploy the application. If you want more control, you could compile, package and deploy the application with Terraform or CDK, but this is not documented yet.</em></p>
+<h2 id="serverless-deployment"><a class="header" href="#serverless-deployment">Serverless deployment</a></h2>
+<p>When deploying as serverless, <strong>you</strong> have to provide and configure Grafana and Prometheus seprately. This repository <em>only</em> wrapps the cloud-scanner in a lambda.</p>
+<p>The recommended serveless deployment is the following.</p>
+<p><img src="reference/../images/cloud-scanner-lambda-deployment.excalidraw.png" alt="Where to deploy the scanner as lambda" /></p>
+<p>The scanner is deployed as a lambda inside a first region of your account. It performs inventory of other regions. </p>
+<ul>
+<li>You may restrict to specifc regions by tuning the role of the lambda defined in <code>serverless.yml</code></li>
+<li>You can (and should) also deploy Boaviztapi as a lambda or other in your account. This allow to perform scans and evaluate impacts without any inventory data leaking outside your account. Once you have deployed your own instance of BoaviztAPI, tune the <code>BOAVIZTA_API_URL</code> in the <code>serverless.yml</code> file to ensure that cloud-scanner points to your private instance of API. See  <a href="reference/../tutorials/../how-to/using-private-boaviztapi.html">using private Boavizta API</a>.</li>
+</ul>
+<p>⚠ Open issue prevents Boavizta API deployment as Lambda (https://github.com/Boavizta/boaviztapi/issues/153). As a workaround we recommend deploying Boavizta API as a docker container  (for example using AWS ECS) . You can still use cloud-scanner itself as serverless application deployed with Lambda.</p>
+<h2 id="serverless-routes"><a class="header" href="#serverless-routes">Serverless routes</a></h2>
+<h3 id="instance-impacts-as-json"><a class="header" href="#instance-impacts-as-json">Instance impacts as JSON</a></h3>
+<p>The <code>scan</code> route returns individual instances metrics in json format (see below, same as CLI)</p>
+<p>Use <code>hours_use_time</code> and <code>aws_region</code> parameters in the query</p>
+<p>E.g.: <code>https://xxxxx.execute-api.eu-west-1.amazonaws.com/dev/scan?hours_use_time=5&amp;aws_region=eu-west-1</code></p>
+<pre><code class="language-json">[
+  {
+    &quot;instance_id&quot;: &quot;i-03c8f84a6318a8186&quot;,
+    &quot;instance_type&quot;: &quot;a1.medium&quot;,
+    &quot;usage_data&quot;: {
+      &quot;hours_use_time&quot;: 5,
+      &quot;time_workload&quot;: 0,
+      &quot;usage_location&quot;: &quot;IRL&quot;
+    },
+    &quot;impacts&quot;: {
+      &quot;adp&quot;: {
+        &quot;manufacture&quot;: 0.0063,
+        &quot;unit&quot;: &quot;kgSbeq&quot;,
+        &quot;use&quot;: 8e-12
+      },
+      &quot;gwp&quot;: {
+        &quot;manufacture&quot;: 31,
+        &quot;unit&quot;: &quot;kgCO2eq&quot;,
+        &quot;use&quot;: 0.0001
+      },
+      &quot;pe&quot;: {
+        &quot;manufacture&quot;: 430,
+        &quot;unit&quot;: &quot;MJ&quot;,
+        &quot;use&quot;: 0.004
+      }
+    }
+  },
+  {
+    &quot;instance_id&quot;: &quot;i-033df52f12f30ca66&quot;,
+    &quot;instance_type&quot;: &quot;m6g.xlarge&quot;,
+    &quot;usage_data&quot;: {
+      &quot;hours_use_time&quot;: 5,
+      &quot;time_workload&quot;: 0,
+      &quot;usage_location&quot;: &quot;IRL&quot;
+    },
+    &quot;impacts&quot;: {
+      &quot;adp&quot;: {
+        &quot;manufacture&quot;: 0.0083,
+        &quot;unit&quot;: &quot;kgSbeq&quot;,
+        &quot;use&quot;: 8e-10
+      },
+      &quot;gwp&quot;: {
+        &quot;manufacture&quot;: 83,
+        &quot;unit&quot;: &quot;kgCO2eq&quot;,
+        &quot;use&quot;: 0.01
+      },
+      &quot;pe&quot;: {
+        &quot;manufacture&quot;: 1100,
+        &quot;unit&quot;: &quot;MJ&quot;,
+        &quot;use&quot;: 0.4
+      }
+    }
+  },
+  {
+    &quot;instance_id&quot;: &quot;i-0a3e6b8cdb50c49b8&quot;,
+    &quot;instance_type&quot;: &quot;c5n.xlarge&quot;,
+    &quot;usage_data&quot;: {
+      &quot;hours_use_time&quot;: 5,
+      &quot;time_workload&quot;: 0,
+      &quot;usage_location&quot;: &quot;IRL&quot;
+    },
+    &quot;impacts&quot;: {
+      &quot;adp&quot;: {
+        &quot;manufacture&quot;: 0.0086,
+        &quot;unit&quot;: &quot;kgSbeq&quot;,
+        &quot;use&quot;: 1e-9
+      },
+      &quot;gwp&quot;: {
+        &quot;manufacture&quot;: 64,
+        &quot;unit&quot;: &quot;kgCO2eq&quot;,
+        &quot;use&quot;: 0.02
+      },
+      &quot;pe&quot;: {
+        &quot;manufacture&quot;: 840,
+        &quot;unit&quot;: &quot;MJ&quot;,
+        &quot;use&quot;: 0.5
+      }
+    }
+  },
+  {
+    &quot;instance_id&quot;: &quot;i-003ea8da7bb9bfff9&quot;,
+    &quot;instance_type&quot;: &quot;m6g.xlarge&quot;,
+    &quot;usage_data&quot;: {
+      &quot;hours_use_time&quot;: 5,
+      &quot;time_workload&quot;: 0,
+      &quot;usage_location&quot;: &quot;IRL&quot;
+    },
+    &quot;impacts&quot;: {
+      &quot;adp&quot;: {
+        &quot;manufacture&quot;: 0.0083,
+        &quot;unit&quot;: &quot;kgSbeq&quot;,
+        &quot;use&quot;: 8e-10
+      },
+      &quot;gwp&quot;: {
+        &quot;manufacture&quot;: 83,
+        &quot;unit&quot;: &quot;kgCO2eq&quot;,
+        &quot;use&quot;: 0.01
+      },
+      &quot;pe&quot;: {
+        &quot;manufacture&quot;: 1100,
+        &quot;unit&quot;: &quot;MJ&quot;,
+        &quot;use&quot;: 0.4
+      }
+    }
+  }
+]
+</code></pre>
+<h3 id="account-impacts-as-metrics"><a class="header" href="#account-impacts-as-metrics">Account impacts as metrics</a></h3>
+<p>The <code>metrics</code> route returns aggregated account metrics <em>for one hour of use</em> in Prometheus format.</p>
+<p>Use <code>aws_region</code> parameters in the query.</p>
+<p>E.g.: <code>https://xxxxx.execute-api.eu-west-1.amazonaws.com/dev/metrics?aws_region=eu-central-1</code></p>
+<pre><code class="language-text"># HELP boavizta_number_of_instances_total Number of instances detected during the scan.
+# TYPE boavizta_number_of_instances_total gauge
+boavizta_number_of_instances_total{awsregion=&quot;eu-central-1&quot;,country=&quot;DEU&quot;} 7
+# HELP boavizta_number_of_instances_assessed Number of instances that were considered in the measure.
+# TYPE boavizta_number_of_instances_assessed gauge
+boavizta_number_of_instances_assessed{awsregion=&quot;eu-central-1&quot;,country=&quot;DEU&quot;} 5
+# HELP boavizta_duration_of_use_hours Number of instances detected during the scan.
+# TYPE boavizta_duration_of_use_hours gauge
+boavizta_duration_of_use_hours{awsregion=&quot;eu-central-1&quot;,country=&quot;DEU&quot;} 1.0
+# HELP boavizta_pe_manufacture_megajoules Power consumed for manufacture.
+# TYPE boavizta_pe_manufacture_megajoules gauge
+boavizta_pe_manufacture_megajoules{awsregion=&quot;eu-central-1&quot;,country=&quot;DEU&quot;} 1760.0
+# HELP boavizta_pe_use_megajoules Power consumed during usage.
+# TYPE boavizta_pe_use_megajoules gauge
+boavizta_pe_use_megajoules{awsregion=&quot;eu-central-1&quot;,country=&quot;DEU&quot;} 0.86
+# EOF
+</code></pre>
+<p>See also <a href="reference/../how-to/set-up-dashboard.html">Set up monitoring dashboard</a> for an example of scrapping and displaying these metrics.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="limitations-and-perimeter"><a class="header" href="#limitations-and-perimeter">Limitations and perimeter</a></h1>
+<p>We do our best to offer accurate estimations of impacts.
+But these figures should  still be considered with a grain of salt.</p>
+<blockquote>
+<p>All models are wrong, but some are useful.</p>
+</blockquote>
+<p>The Boavizta impact data result from a modelling effort. It is important to consider the Perimeter of the reources that cloud-scanner accounts for and the limits of the tool itself.</p>
+<h2 id="perimeter--scope"><a class="header" href="#perimeter--scope">Perimeter / scope</a></h2>
+<p>Cloud scanner <em>only</em> estimates the impacts of your AWS EC2  instances.</p>
+<p>Several significant aspects of the global impacts of cloud usage are <strong>excluded</strong>:</p>
+<ul>
+<li>only measure <em>compute</em> instances (EC2 VM’s)</li>
+<li>do not account for the surrounding cloud infrastructure (network, control plan)</li>
+<li>do not account for storage</li>
+<li>do not take into account the <em>overcommit</em> (mutualization) or <em>overprovisionning</em> that cloud provider may apply to provide the service.</li>
+<li>do not account managed services (like DB as a service or Containers as a service).</li>
+<li>do not account serverless (lambda) compute.</li>
+<li>supported regions (EU and US only for the time being)</li>
+<li>unsupported instance types returns zero for their impacts.</li>
+<li>we do not provide (yet) error margins https://github.com/Boavizta/boaviztapi/issues/147</li>
+<li>The manufacturing impacts are not amortized (i.e. values returned for manufacturing impacts do not consider usage duration).</li>
+</ul>
+<h2 id="other-limits"><a class="header" href="#other-limits">Other limits</a></h2>
+<h3 id="not-all-regions-are-supported"><a class="header" href="#not-all-regions-are-supported">Not all Regions are supported</a></h3>
+<p>Only a subset of AWS regions are supported.
+When performing inventory, he <strong>only the EU-based or US-based</strong> aws regions are supported for the time being (eu-east-1,,eu-central-1,eu-north-1,eu-south-1,eu-west-1,eu-west-2,eu-west-3,us-east-1,us-east-2,us-west-1,us-west-2).</p>
+<p>When a region is not recognized by Cloud-scanner, it defaults to using the Carbon intensty factor of France.
+This is particularly relevant when considering CoEq indicator because the carbon intensity factor varies greatly between regions.</p>
+<h3 id="instances-supported"><a class="header" href="#instances-supported">Instances supported</a></h3>
+<p>Cloud scanner supports all instances types of Boavizta API. But when a specific instance type cannot be matched with the Boavizta data set,
+Cloud-scanner returns empty impacts (i.e. zeroed imapct values).</p>
+<p>See also <a href="https://github.com/Boavizta/cloud-scanner/issues">Issues · Boavizta/cloud-scanner</a>.</p>
+<h3 id="carbon-intensity-is-not-real-time"><a class="header" href="#carbon-intensity-is-not-real-time">Carbon intensity is not real time</a></h3>
+<p>Carbon intensity of electricity is not (yet) real time. It uses and yearly extract. This is more related to the API itself, see <a href="https://github.com/Boavizta/boaviztapi/issues/117">https://github.com/Boavizta/boaviztapi/issues/117</a> and general Boavizta API methodology.</p>
+<h3 id="allocation-of-manufacture-impacts"><a class="header" href="#allocation-of-manufacture-impacts">Allocation of manufacture impacts</a></h3>
+<p>Today, cloud scanner returns the manufacture impacts of a resource corresponding to <em>the entire lifecyle</em> of the ressource. The manufacture impacts returned for a VM are the same if you use it one hours or several year. Said differently we do <em>not</em> amortize the manufacuring impacts over the duration of use.</p>
+<h3 id="we-do-not-provide-margins-of-error"><a class="header" href="#we-do-not-provide-margins-of-error">We do not provide margins of error</a></h3>
+<p>Cloud scanner is not yet able to provide error margin related to it’s estimation. Note that there is ongoing work on Boavizta API to provide more details about the error margins: <a href="https://github.com/Boavizta/boaviztapi/issues/147">https://github.com/Boavizta/boaviztapi/issues/147</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="testing"><a class="header" href="#testing">Testing</a></h1>
+<p>Whne launched with <code>cargo test -- --include-ignored</code> some the unit tests require a specific instance to run (when launched ).</p>
+<blockquote>
+<p>These integration tests requiere specific instance to be up and running to pass. This means they are tied to a specific cloud account.</p>
+</blockquote>
+<p>Commands to start or stop instances:</p>
+<pre><code class="language-sh"># List instance state
+aws ec2 describe-instance-status --include-all-instances --filters Name=instance-state-name,Values='*' --query 'InstanceStatuses[*].{InstanceId: InstanceId, State: InstanceState.Name}' --ouptut table
+
+# start instance 
+aws ec2 start-instances --instance-id i-03c8f84a6318a8186
+
+# stop instance
+aws ec2 stop-instances --instance-id i-03c8f84a6318a8186
+
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+    </body>
+</html>
